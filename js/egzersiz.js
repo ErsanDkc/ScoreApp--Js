@@ -16,8 +16,19 @@ function formhandler(event) {
     let USER_NAME = document.querySelector("#username")
     let SCORE = document.querySelector("#score")
     if(USER_NAME.value && SCORE.value) {
-        additem(USER_NAME.value, SCORE.value )
-        localStorage.setItem("NOTLAR", JSON.stringify([USER_NAME.value, SCORE.value]))
+        let object = {
+          name : USER_NAME.value,
+          not : SCORE.value
+        }
+        let list = JSON.parse(localStorage.getItem("NOTLAR"))  
+        if(list.length>0) {
+          list.push(object)
+          localStorage.setItem("NOTLAR", JSON.stringify(list))
+        } else {
+          localStorage.setItem("NOTLAR", JSON.stringify([object]))
+        }
+        additem(USER_NAME.value, SCORE.value)
+        
         USER_NAME.value = ""
         SCORE.value = ""
         
